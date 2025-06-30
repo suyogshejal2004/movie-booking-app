@@ -30,7 +30,8 @@ const responsive = {
 
   // Font
   fontSize: size => responsiveFontSize(size),
-  clampFontSize: (size, min = 12, max = 26) => clamp(responsiveFontSize(size), min, max),
+  clampFontSize: (size, min = 12, max = 26) =>
+    clamp(responsiveFontSize(size), min, max),
 
   // Margin
   margin: size => scale(size),
@@ -49,9 +50,10 @@ const responsive = {
   paddingRight: size => scale(size),
   paddingHorizontal: size => scale(size),
   paddingVertical: size => verticalScale(size),
- gap : size => scale(size),
+  gap: size => scale(size),
   // Border Radius
   borderRadius: size => scale(size),
+  borderWidth: size => scale(size),
 
   // Icon Size (optional helper)
   iconSize: size => scale(size),

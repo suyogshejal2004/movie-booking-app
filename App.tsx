@@ -5,13 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import NavigationScreen from './Screens /Navigation';
 import onboarding1 from './Screens /Onboarding1';
 import Onboarding1 from './Screens /Onboarding1';
+import Onboarding2 from './Screens /onboard2';
 
 
 export default function App() {
   return (
-<SafeAreaView style={{flex:1}}>
-  <Navigation/>
-</SafeAreaView>
+    <Navigation/>
 
     
   );

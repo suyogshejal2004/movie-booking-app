@@ -1,6 +1,14 @@
-import { Image, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import responsive from "../component /responsiveui";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import responsive from '../component /responsiveui';
 
 const upcomingMovies = [
   { uri: 'https://image.tmdb.org/t/p/w500/2RSirqZG949GuRwN38MYCIGG4Od.jpg' },
@@ -70,25 +78,28 @@ export default function Onboarding1({ navigation }) {
               alignItems: 'center',
               marginTop: responsive.marginTop(25),
               justifyContent: 'center',
-                 flexDirection: 'row',
-                 gap: responsive.gap(10),
+              flexDirection: 'row',
+              gap: responsive.gap(10),
             }}
           >
-            <Pressable
-              style={{
-                height: responsive.height(10),
-             
-                backgroundColor: 'red',
-                width: responsive.width(50),
-              }}
-            />
-            <Pressable
-              style={{
-                height: responsive.height(10),
-                backgroundColor: 'red',
-                width: responsive.width(50),
-              }}
-            />
+            <View style={{ flexDirection: 'row', gap: responsive.gap(4) }}>
+              <View
+                style={{
+                  backgroundColor: '#EB2F3D',
+                  height: responsive.height(5),
+                  width: responsive.width(90),
+                  borderRadius: responsive.borderRadius(19),
+                }}
+              />
+              <View
+                style={{
+                  height: responsive.height(5),
+                  borderRadius: responsive.borderRadius(19),
+                  width: responsive.width(90),
+                  backgroundColor: '#1E1E1E',
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -99,7 +110,6 @@ export default function Onboarding1({ navigation }) {
 const styles = StyleSheet.create({
   linearGradient: {
     flex: 1,
-    
   },
   scrollView: {
     marginTop: responsive.margin(20),
@@ -110,6 +120,7 @@ const styles = StyleSheet.create({
     marginRight: responsive.margin(30),
     marginTop: responsive.margin(30),
     color: '#D4D4D4',
+    
   },
   image: {
     height: responsive.height(182),
