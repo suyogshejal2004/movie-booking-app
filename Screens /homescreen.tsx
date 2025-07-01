@@ -12,38 +12,13 @@ const recommendedMovies = [
 ];
 
 export default function HomeScreen({ navigation }) {
-  const renderMovieCard = ({ item }) => (
-    <TouchableOpacity
-      style={styles.movieCard}
-      onPress={() => navigation.navigate('Details', { movieId: item.id })}
-    >
-      <Image source={{ uri: item.image }} style={styles.movieImage} />
-      <Text style={styles.movieTitle}>{item.title}</Text>
-    </TouchableOpacity>
-  );
+  
+  return(<View>
+  
+    <Text>
 
-  return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.header}>Welcome to MovieApp 🎬</Text>
-
-      <Text style={styles.sectionTitle}>Popular</Text>
-      <FlatList
-        horizontal
-        data={popularMovies}
-        renderItem={renderMovieCard}
-        keyExtractor={(item) => item.id}
-        showsHorizontalScrollIndicator={false}
-      />
-
-      <Text style={styles.sectionTitle}>Recommended for You</Text>
-      <FlatList
-        data={recommendedMovies}
-        renderItem={renderMovieCard}
-        keyExtractor={(item) => item.id}
-        scrollEnabled={false}
-      />
-    </ScrollView>
-  );
+    </Text>
+  </View>)
 }
 
 const styles = StyleSheet.create({

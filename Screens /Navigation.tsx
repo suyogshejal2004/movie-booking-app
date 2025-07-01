@@ -10,6 +10,7 @@ import Onboarding2 from './onboard2';
 import HomeScreen from './homescreen';
 import SignInPage from './SignInpage';
 import SignUpPage from './SignUpScreen';
+import SignUpSuccessfully from './SignUpSuccesfuly';
 
 const Stack = createNativeStackNavigator();
 export default function NavigationScreen() {
@@ -25,6 +26,7 @@ export default function NavigationScreen() {
         <Stack.Screen name="homescreen" component={HomeScreen} />
         <Stack.Screen name="SigninSCreen" component={SignInPage} />
         <Stack.Screen name="SignUpScreen" component={SignUpPage} />
+        <Stack.Screen name = "signupsc" component={SignUpSuccessfully} />
       </Stack.Navigator>
     </NavigationContainer>
   );

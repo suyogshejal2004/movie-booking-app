@@ -6,11 +6,12 @@ import NavigationScreen from './Screens /Navigation';
 import onboarding1 from './Screens /Onboarding1';
 import Onboarding1 from './Screens /Onboarding1';
 import Onboarding2 from './Screens /onboard2';
+import SignUpSuccessfully from './Screens /SignUpSuccesfuly';
 
 
 export default function App() {
   return (
-    <Navigation/>
+<Navigation/>
 
     
   );

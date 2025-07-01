@@ -27,8 +27,14 @@ export default function SignUpPage({ navigation }) {
       <View style={style.content}>
         <Text style={style.signtxt}>Sign Up</Text>
 
-        <View style={{ alignItems: 'center', marginTop: responsive.marginTop(19) }}>
-          <TextInput style={style.txtinput} placeholder="E-Mail" placeholderTextColor="#575757" />
+        <View
+          style={{ alignItems: 'center', marginTop: responsive.marginTop(19) }}
+        >
+          <TextInput
+            style={style.txtinput}
+            placeholder="E-Mail"
+            placeholderTextColor="#575757"
+          />
         </View>
 
         <View style={style.passwordContainer}>
@@ -41,18 +47,30 @@ export default function SignUpPage({ navigation }) {
             style={style.passwordInput}
           />
           <TouchableOpacity onPress={() => setSecureText(!secureText)}>
-            <Icon name={secureText ? 'eye-off' : 'eye'} size={24} color="#404040" />
+            <Icon
+              name={secureText ? 'eye-off' : 'eye'}
+              size={24}
+              color="#404040"
+            />
           </TouchableOpacity>
         </View>
 
         <View style={style.forgotWrapper}>
           <Pressable>
-            <Text style={style.forgottxt}>Forgot Password?</Text>
+            <Text style={style.forgottxt}>
+              By clicking the "sign up" button, you accept the terms
+            </Text>
+            <Text style={style.forgottxt}>
+              of the
+              <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>
+                Privacy Policy
+              </Text>
+            </Text>
           </Pressable>
         </View>
 
         <View>
-          <Pressable style={style.signinButton}>
+          <Pressable onPress={()=>navigation.navigate('signupsc')} style={style.signinButton}>
             <Text style={style.signinText}>Sign up</Text>
           </Pressable>
         </View>
@@ -65,13 +83,28 @@ export default function SignUpPage({ navigation }) {
 
         <View style={style.socialWrapper}>
           <Pressable>
-            <Ionicons name="logo-facebook" color="white" size={24} style={style.logo} />
+            <Ionicons
+              name="logo-facebook"
+              color="white"
+              size={24}
+              style={style.logo}
+            />
           </Pressable>
           <Pressable>
-            <AntDesign name="google" color="white" size={24} style={style.logo} />
+            <AntDesign
+              name="google"
+              color="white"
+              size={24}
+              style={style.logo}
+            />
           </Pressable>
           <Pressable>
-            <AntDesign name="apple1" color="white" size={24} style={style.logo} />
+            <AntDesign
+              name="apple1"
+              color="white"
+              size={24}
+              style={style.logo}
+            />
           </Pressable>
         </View>
       </View>
@@ -129,7 +162,7 @@ const style = StyleSheet.create({
   },
   forgotWrapper: {
     marginTop: responsive.marginTop(10),
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     marginRight: responsive.marginRight(20),
   },
   forgottxt: {

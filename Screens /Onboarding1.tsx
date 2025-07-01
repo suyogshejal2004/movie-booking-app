@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import responsive from '../component /responsiveui';
+import Onboarding from 'react-native-onboarding-swiper';
 
 const upcomingMovies = [
   { uri: 'https://image.tmdb.org/t/p/w500/2RSirqZG949GuRwN38MYCIGG4Od.jpg' },
