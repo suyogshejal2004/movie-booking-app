@@ -24,7 +24,7 @@ const HeaderComponent = ({ username = 'Guest', navigation }) => {
           <Icon name="search-outline" size={34} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <Pressable style={styles.btnicon}>
+        <Pressable onPress={() => nav.navigate('AccountInfoScreen')}style={styles.btnicon}>
           <Icon name="person-outline" size={34} color="#FFFFFF" />
         </Pressable>
       </View>

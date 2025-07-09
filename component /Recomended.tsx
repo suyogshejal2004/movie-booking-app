@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 
 const API_KEY = '6ac52cb9';
-const movieTitles = ['Salaar', 'Flash', 'Aquaman'];
+const movieTitles = ['Salaar', 'Flash', 'Aquaman', 'Jawan', 'Animal'];
 
 const RecommendedMovies = () => {
   const [movies, setMovies] = useState([]);
@@ -29,7 +29,7 @@ const RecommendedMovies = () => {
             axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&t=${title}`)
           )
         );
-        const data = results.map(res => res.data);
+        const data = results.map(res => res.data).filter(m => m?.Title);
         setMovies(data);
       } catch (error) {
         console.error('Error fetching movies:', error);
@@ -48,12 +48,16 @@ const RecommendedMovies = () => {
 
   const renderMovieCard = ({ item }) => (
     <View style={styles.card}>
-      {/* Navigate to movie details on image click */}
-      <TouchableOpacity onPress={() => navigation.navigate('MovieDetailsScreen', { movie: item })}>
-        <Image source={{ uri: item.Poster }} style={styles.poster} />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('MovieDetailsScreen', { movie: item })}
+      >
+        <Image
+          source={{ uri: item.Poster !== 'N/A' ? item.Poster : 'https://via.placeholder.com/120x180?text=No+Image' }}
+          style={styles.poster}
+        />
       </TouchableOpacity>
 
-      {/* Open trailer on ▶ button click */}
+      {/* ▶ Trailer button */}
       <TouchableOpacity onPress={() => openTrailer(item.Title)} style={styles.playButton}>
         <Text style={{ color: 'white', fontSize: 16 }}>▶</Text>
       </TouchableOpacity>
@@ -64,35 +68,31 @@ const RecommendedMovies = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
+      {/* Section Header */}
       <View style={styles.header}>
-        <Text style={styles.recommended}>Recommended Movies</Text>
-        <TouchableOpacity>
-          <Text style={styles.seeAll}>See All ></Text>
+        <Text style={styles.recommended}>🎬 Recommended Movies</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('AllMoviesScreen', { movies })}>
+          <Text style={styles.seeAll}>See All &gt;</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Movie list */}
+      {/* Horizontal Movie List */}
       <FlatList
         horizontal
         data={movies}
         renderItem={renderMovieCard}
         keyExtractor={(item, index) => `${item.imdbID}-${index}`}
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 10 }}
       />
 
-      {/* Optional filter button */}
-  {   /* <TouchableOpacity style={styles.filterIcon}>
-        <Text style={styles.filterText}>🔍</Text>
-      </TouchableOpacity>*/}
-
-      {/* Modal for Trailer */}
+      {/* Modal for Trailer Preview */}
       <Modal visible={!!trailerUrl} animationType="slide">
         <View style={{ flex: 1 }}>
           <Pressable onPress={closeTrailer} style={styles.closeButton}>
             <Text style={{ fontSize: 18, color: 'white' }}>✖ Close</Text>
           </Pressable>
-          <WebView source={{ uri: trailerUrl }} />
+          <WebView source={{ uri: trailerUrl }} startInLoadingState />
         </View>
       </Modal>
     </View>
@@ -102,10 +102,28 @@ const RecommendedMovies = () => {
 export default RecommendedMovies;
 
 const styles = StyleSheet.create({
-  container: { paddingTop: 20, paddingLeft: 10, backgroundColor: '#000', flex: 1 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', marginRight: 20 },
-  recommended: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
-  seeAll: { color: 'red', marginTop: 2 },
+  container: {
+    paddingTop: 20,
+    backgroundColor: '#000',
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginBottom: 10,
+  },
+  recommended: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  seeAll: {
+    color: '#F9575D',
+    fontSize: 14,
+    fontWeight: '500',
+    marginTop: 4,
+  },
   card: {
     width: 140,
     marginRight: 12,
@@ -117,33 +135,23 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: 16,
     resizeMode: 'cover',
-  },
-  title: {
-    color: '#fff',
-    marginTop: 6,
-    textAlign: 'center',
-    fontSize: 12,
+    backgroundColor: '#444',
   },
   playButton: {
     position: 'absolute',
-    top: 110,
+    top: 120,
     left: 90,
     backgroundColor: '#000a',
     borderRadius: 20,
     padding: 6,
     zIndex: 2,
   },
-  filterIcon: {
-    position: 'absolute',
-    bottom: 240,
-    right: 20,
-    backgroundColor: '#f44',
-    borderRadius: 20,
-    padding: 10,
-  },
-  filterText: {
+  title: {
     color: '#fff',
-    fontSize: 16,
+    marginTop: 6,
+    textAlign: 'center',
+    fontSize: 12,
+    width: 120,
   },
   closeButton: {
     backgroundColor: '#222',

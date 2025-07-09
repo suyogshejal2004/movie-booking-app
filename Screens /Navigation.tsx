@@ -15,6 +15,8 @@ import SearchScreen from '../component /SearchScreen';
 import MovieDetailsScreen from '../component /MovieDetailsScreen';
 import BookTicketsScreen from './BookTicketsScreen';
 import PaymentScreen from '../component /PaymentScreen';
+import AllMoviesScreen from '../component / AllMoviesScreen';
+import AccountInfoScreen from '../component /AccountInfoScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +42,9 @@ export default function NavigationScreen() {
         <Stack.Screen name="MovieDetailsScreen"component={MovieDetailsScreen}/>
         <Stack.Screen name='Bokking' component={BookTicketsScreen}/>
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
+        <Stack.Screen name="AllMoviesScreen" component={AllMoviesScreen} />
+        <Stack.Screen name="AccountInfoScreen" component={AccountInfoScreen} />
+
 
       </Stack.Navigator>
     </NavigationContainer>

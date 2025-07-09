@@ -12,10 +12,23 @@ import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
+import { auth } from  '../component /AuthContext';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUpPage({ navigation }) {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
+
+  const handleSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
+      alert('Sign Up Successful');
+      navigation.navigate('homescreen');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <View style={style.container}>
@@ -23,7 +36,7 @@ export default function SignUpPage({ navigation }) {
         <Text style={style.skiptxt}>Skip</Text>
       </Pressable>
 
-      {/* Main Sign-In Content */}
+      {/* Main Sign-Up Content */}
       <View style={style.content}>
         <Text style={style.signtxt}>Sign Up</Text>
 
@@ -34,6 +47,10 @@ export default function SignUpPage({ navigation }) {
             style={style.txtinput}
             placeholder="E-Mail"
             placeholderTextColor="#575757"
+            onChangeText={setEmail}
+            value={email}
+            autoCapitalize="none"
+            keyboardType="email-address"
           />
         </View>
 
@@ -63,14 +80,17 @@ export default function SignUpPage({ navigation }) {
             <Text style={style.forgottxt}>
               of the
               <Text style={{ color: '#FFFFFF', fontWeight: '600' }}>
-                Privacy Policy
+                {' '}Privacy Policy
               </Text>
             </Text>
           </Pressable>
         </View>
 
         <View>
-          <Pressable onPress={()=>navigation.navigate('signupsc')} style={style.signinButton}>
+          <Pressable
+            style={style.signinButton}
+            onPress={handleSignUp}
+          >
             <Text style={style.signinText}>Sign up</Text>
           </Pressable>
         </View>
@@ -109,7 +129,7 @@ export default function SignUpPage({ navigation }) {
         </View>
       </View>
 
-      {/* Bottom Signup Section */}
+      {/* Bottom Signin Section */}
       <View style={style.signupPrompt}>
         <Text style={style.botomtxt}>Already have an account? </Text>
         <Pressable onPress={() => navigation.navigate('SigninSCreen')}>

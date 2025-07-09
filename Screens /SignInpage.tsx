@@ -12,10 +12,23 @@ import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
+import { auth } from '../component /AuthContext';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignInPage({ navigation }) {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      alert('Sign In Successful');
+      navigation.navigate('homescreen');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <View style={style.container}>
@@ -28,7 +41,15 @@ export default function SignInPage({ navigation }) {
         <Text style={style.signtxt}>Sign In</Text>
 
         <View style={{ alignItems: 'center', marginTop: responsive.marginTop(19) }}>
-          <TextInput style={style.txtinput} placeholder="E-Mail" placeholderTextColor="#575757" />
+          <TextInput
+            style={style.txtinput}
+            placeholder="E-Mail"
+            placeholderTextColor="#575757"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
         </View>
 
         <View style={style.passwordContainer}>
@@ -52,7 +73,7 @@ export default function SignInPage({ navigation }) {
         </View>
 
         <View>
-          <Pressable style={style.signinButton}>
+          <Pressable style={style.signinButton} onPress={handleSignIn}>
             <Text style={style.signinText}>Sign In</Text>
           </Pressable>
         </View>
