@@ -1,4 +1,4 @@
-package com.passwordgenratorhc
+package com.moviebookingbysuyog
 
 import android.app.Application
 import com.facebook.react.PackageList
