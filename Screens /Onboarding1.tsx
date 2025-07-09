@@ -1,68 +1,79 @@
+import React, { useEffect, useState } from 'react';
 import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Pressable,
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import axios from 'axios';
 import responsive from '../component /responsiveui';
-import Onboarding from 'react-native-onboarding-swiper';
 
-const upcomingMovies = [
-  { uri: 'https://image.tmdb.org/t/p/w500/2RSirqZG949GuRwN38MYCIGG4Od.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/9OYu6oDLIidSOocW3JTGtd2Oyqy.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/nrSaXF39nDfAAeLKksRCyvSzI2a.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/6KErczPBROQty7QoIsaa6wJYXZi.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/aJn9XeesqsrSLKcHfHP4u5985hn.jpg' },
-];
-
-const images = [
-  { uri: 'https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/6agKYU5IQFpuDyUYPu39w7UCRrJ.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/4ZocdxnOO6q2UbdKye2wgofLFhB.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/6agKYU5IQFpuDyUYPu39w7UCRrJ.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/4ZocdxnOO6q2UbdKye2wgofLFhB.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/aQvJ5WPzZgYVDrxLX4R6cLJCEaQ.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg' },
-  { uri: 'https://image.tmdb.org/t/p/w500/zGGWYpiKNwjpKxelPxOMqJnUgDs.jpg' },
-];
+const API_KEY = '6ac52cb9';
+const searchTerms = ['Batman', 'Avengers', 'Spiderman'];
 
 export default function Onboarding1({ navigation }) {
+  const [images, setImages] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const allPosters = [];
+
+        for (const term of searchTerms) {
+          const response = await axios.get(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${term}`);
+          if (response.data.Search) {
+            const posters = response.data.Search.filter(movie => movie.Poster !== 'N/A');
+            allPosters.push(...posters.map(movie => ({ uri: movie.Poster })));
+          }
+        }
+
+        setImages(allPosters.slice(0, 10));
+        setUpcomingMovies(allPosters.slice(10, 17)); // You can adjust slice as needed
+      } catch (error) {
+        console.error('Error fetching movie posters:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
   return (
-    <LinearGradient
-      style={styles.linearGradient}
-      colors={['#1F1F1F', '#121011']}
-    >
+    <LinearGradient style={styles.linearGradient} colors={['#1F1F1F', '#121011']}>
       <View>
         <Pressable onPress={() => navigation.navigate('homescreen')}>
           <Text style={styles.skipText}>Skip</Text>
         </Pressable>
 
-        <ScrollView
-          style={styles.scrollView}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        >
-          {images.map((item, index) => (
-            <Image key={index} source={item} style={styles.image} />
-          ))}
-        </ScrollView>
+        {loading ? (
+          <ActivityIndicator size="large" color="#EB2F3D" style={{ marginTop: 40 }} />
+        ) : (
+          <>
+            <ScrollView
+              style={styles.scrollView}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {images.map((item, index) => (
+                <Image key={index} source={item} style={styles.image} />
+              ))}
+            </ScrollView>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {upcomingMovies.map((item, index) => (
-            <Image key={index} source={item} style={styles.image} />
-          ))}
-        </ScrollView>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {upcomingMovies.map((item, index) => (
+                <Image key={index} source={item} style={styles.image} />
+              ))}
+            </ScrollView>
+          </>
+        )}
 
         <View style={styles.bottomContainer}>
           <Text style={styles.txt}>Tell us about your</Text>
@@ -74,6 +85,7 @@ export default function Onboarding1({ navigation }) {
           >
             <Text style={styles.btnText}>Next</Text>
           </TouchableOpacity>
+
           <View
             style={{
               alignItems: 'center',
@@ -121,7 +133,6 @@ const styles = StyleSheet.create({
     marginRight: responsive.margin(30),
     marginTop: responsive.margin(30),
     color: '#D4D4D4',
-    
   },
   image: {
     height: responsive.height(182),

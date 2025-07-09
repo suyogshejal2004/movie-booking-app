@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native';
-
+import HeaderComponent from '../component /header';
+import Highlight from '../component /highlight';
+import RecommendedMovies from '../component /Recomended';
 const popularMovies = [
   { id: '1', title: 'Inception', image: 'https://image.tmdb.org/t/p/w500//qmDpIHrmpJINaRKAfWQfftjCdyi.jpg' },
   { id: '2', title: 'Interstellar', image: 'https://image.tmdb.org/t/p/w500//gEU2QniE6E77NI6lCU6MxlNBvIx.jpg' },
@@ -11,13 +13,15 @@ const recommendedMovies = [
   { id: '4', title: 'Parasite', image: 'https://image.tmdb.org/t/p/w500//7IiTTgloJzvGI1TAYymCfbfl3vT.jpg' },
 ];
 
-export default function HomeScreen({ navigation }) {
-  
-  return(<View>
-  
-    <Text>
+export default function HomeScreen({ navigation, route }) {
+  const username = route?.params?.username || 'Guest';
 
-    </Text>
+  return(<View style={styles.container}>
+
+ <HeaderComponent username={username} />
+<Highlight/>
+<RecommendedMovies/>
+   
   </View>)
 }
 
@@ -25,8 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#111',
-    paddingTop: 40,
-    paddingHorizontal: 16,
+ 
   },
   header: {
     fontSize: 26,

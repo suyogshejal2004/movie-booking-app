@@ -11,14 +11,14 @@ import responsive from '../component /responsiveui';
 import { useState } from 'react';
 
 export default function SignUpSuccessfully({ navigation }) {
-  const handleNavigation =()=>{
-    navigation.navigate('homescreen')
-    {
-      username:name
-    }
-  }
-  
-  const [name, setname]= useState('')
+  const [name, setName] = useState('');
+
+  const handleNavigation = () => {
+    navigation.navigate('homescreen', {
+      username: name, // ✅ Pass username to HomeScreen
+    });
+  };
+
   return (
     <KeyboardAvoidingView
       style={style.container}
@@ -36,23 +36,20 @@ export default function SignUpSuccessfully({ navigation }) {
             placeholder="Your name"
             style={style.input}
             value={name}
-            onChangeText={setname}
+            onChangeText={setName}
           />
           <TextInput
             placeholder="Your phone number"
             style={style.input}
             inputMode="numeric"
           />
-          <TextInput placeholder="current city" style={style.input} />
+          <TextInput placeholder="Current city" style={style.input} />
         </View>
       </View>
 
       {/* Bottom Button */}
       <View style={style.container4}>
-        <TouchableOpacity
-          onPress={handleNavigation}
-          style={style.button}
-        >
+        <TouchableOpacity onPress={handleNavigation} style={style.button}>
           <Text style={style.btntxt}>Continue</Text>
         </TouchableOpacity>
       </View>
