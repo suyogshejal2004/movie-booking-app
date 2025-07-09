@@ -12,8 +12,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
-import { auth } from  '../component /AuthContext';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from '@react-native-firebase/auth';
 
 export default function SignUpPage({ navigation }) {
   const [email, setEmail] = useState('');
@@ -22,11 +21,18 @@ export default function SignUpPage({ navigation }) {
 
   const handleSignUp = async () => {
     try {
+      const auth = getAuth();
       await createUserWithEmailAndPassword(auth, email.trim(), password);
-      alert('Sign Up Successful');
+      alert('User account created & signed in!');
       navigation.navigate('homescreen');
     } catch (error) {
-      alert(error.message);
+      if (error.code === 'auth/email-already-in-use') {
+        alert('That email address is already in use!');
+      } else if (error.code === 'auth/invalid-email') {
+        alert('That email address is invalid!');
+      } else {
+        alert(error.message);
+      }
     }
   };
 
@@ -102,7 +108,7 @@ export default function SignUpPage({ navigation }) {
         </View>
 
         <View style={style.socialWrapper}>
-          <Pressable>
+          <Pressable onPress={() => alert('Facebook Auth not implemented')}>
             <Ionicons
               name="logo-facebook"
               color="white"
@@ -110,7 +116,7 @@ export default function SignUpPage({ navigation }) {
               style={style.logo}
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => alert('Google Auth not implemented')}>
             <AntDesign
               name="google"
               color="white"
@@ -118,7 +124,7 @@ export default function SignUpPage({ navigation }) {
               style={style.logo}
             />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => alert('Apple Auth not implemented')}>
             <AntDesign
               name="apple1"
               color="white"

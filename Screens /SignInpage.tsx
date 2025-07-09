@@ -6,14 +6,12 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import colors from '../component/colors';
 import responsive from '../component /responsiveui';
 import Icon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
-import { auth } from '../component /AuthContext';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import auth from '@react-native-firebase/auth';
 
 export default function SignInPage({ navigation }) {
   const [email, setEmail] = useState('');
@@ -21,12 +19,23 @@ export default function SignInPage({ navigation }) {
   const [secureText, setSecureText] = useState(true);
 
   const handleSignIn = async () => {
+    if (!email || !password) {
+      alert('Please enter email and password');
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email.trim(), password);
+      await auth().signInWithEmailAndPassword(email.trim(), password);
       alert('Sign In Successful');
       navigation.navigate('homescreen');
     } catch (error) {
-      alert(error.message);
+      if (error.code === 'auth/user-not-found') {
+        alert('No user found with this email.');
+      } else if (error.code === 'auth/wrong-password') {
+        alert('Incorrect password.');
+      } else {
+        alert(error.message);
+      }
     }
   };
 
@@ -36,7 +45,6 @@ export default function SignInPage({ navigation }) {
         <Text style={style.skiptxt}>Skip</Text>
       </Pressable>
 
-      {/* Main Sign-In Content */}
       <View style={style.content}>
         <Text style={style.signtxt}>Sign In</Text>
 
@@ -85,19 +93,18 @@ export default function SignInPage({ navigation }) {
         </View>
 
         <View style={style.socialWrapper}>
-          <Pressable>
+          <Pressable onPress={() => alert('Facebook Auth not implemented')}>
             <Ionicons name="logo-facebook" color="white" size={24} style={style.logo} />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => alert('Google Auth not implemented')}>
             <AntDesign name="google" color="white" size={24} style={style.logo} />
           </Pressable>
-          <Pressable>
+          <Pressable onPress={() => alert('Apple Auth not implemented')}>
             <AntDesign name="apple1" color="white" size={24} style={style.logo} />
           </Pressable>
         </View>
       </View>
 
-      {/* Bottom Signup Section */}
       <View style={style.signupPrompt}>
         <Text style={style.botomtxt}>Don't have an account? </Text>
         <Pressable onPress={() => navigation.navigate('SignUpScreen')}>
