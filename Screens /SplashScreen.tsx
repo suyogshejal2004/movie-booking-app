@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import LottieView from "lottie-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.replace('onboarding1'); // Navigate after 3 sec
-    }, 3000);
+    const checkAndNavigate = async () => {
+      // Set the splash flag
+      await AsyncStorage.setItem("splashViewed", "true");
 
-    return () => clearTimeout(timer); // Cleanup timer
+      setTimeout(() => {
+        navigation.replace("onboarding1"); // or your next screen
+      }, 3000);
+    };
+
+    checkAndNavigate();
   }, []);
 
   return (
     <View style={styles.container}>
       <LottieView
         style={styles.animation}
-        source={require('../Src/movie.json')}
+        source={require("../Src/movie.json")}
         autoPlay
         loop
       />
@@ -27,17 +33,17 @@ export default function SplashScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EB2F3D',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#EB2F3D",
+    justifyContent: "center",
+    alignItems: "center",
   },
   animation: {
     height: 150,
     width: 150,
   },
   versionText: {
-    color: '#FFFFFF',
-    position: 'absolute',
+    color: "#FFFFFF",
+    position: "absolute",
     bottom: 50,
     fontSize: 14,
   },

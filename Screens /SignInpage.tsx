@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
 import auth from '@react-native-firebase/auth';
-
+import Fontisto from 'react-native-vector-icons/Fontisto';
 export default function SignInPage({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -93,8 +93,8 @@ export default function SignInPage({ navigation }) {
         </View>
 
         <View style={style.socialWrapper}>
-          <Pressable onPress={() => alert('Facebook Auth not implemented')}>
-            <Ionicons name="logo-facebook" color="white" size={24} style={style.logo} />
+          <Pressable onPress={() => navigation.navigate('callsignin')}>
+           <Fontisto name="phone" color="white" size={24} style={style.logo} />
           </Pressable>
           <Pressable onPress={() => alert('Google Auth not implemented')}>
             <AntDesign name="google" color="white" size={24} style={style.logo} />

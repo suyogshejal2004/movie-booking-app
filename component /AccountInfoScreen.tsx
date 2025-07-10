@@ -1,62 +1,122 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Image,
   TouchableOpacity,
   ScrollView,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { getAuth, signOut } from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
-// Sample User & Ticket Data
-const user = {
-  name: 'Suyog Shejal',
-  email: 'suyogshejal2004@gmail.com',
-  phone: '+91 9325285808',
-  profilePic: 'https://i.pravatar.cc/150?img=5',
-};
+const AccountInfoScreen = ({ navigation }) => {
+  const [userData, setUserData] = useState(null);
+  const [bookedTickets, setBookedTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-const bookedTickets = [
-  {
-    id: '1',
-    title: 'Salaar',
-    seats: ['B4', 'B5'],
-    time: '2025-07-09 04:30 PM',
-    poster: 'https://m.media-amazon.com/images/M/MV5BMzAzZWM0MGUtYmUwYi00YjA4LTgxYWEtYmVkNGNiNGE0ZTkxXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_SX300.jpg',
-  },
-  {
-    id: '2',
-    title: 'Aquaman',
-    seats: ['D1', 'D2', 'D3'],
-    time: '2025-07-11 02:15 PM',
-    poster: 'https://m.media-amazon.com/images/M/MV5BZDQ3NjQ1ZmQtZTZmNC00ZDA1LTk2YTUtY2VjNDVkMzY2NmRkXkEyXkFqcGdeQXVyNjU1OTg4OTM@._V1_SX300.jpg',
-  },
-];
+  useEffect(() => {
+    const user = getAuth().currentUser;
+    if (!user) {
+      navigation.replace('SigninSCreen');
+      return;
+    }
 
-const AccountInfoScreen = () => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // Fetch user profile
+        const userDoc = await firestore().collection('users').doc(user.uid).get();
+        if (userDoc.exists) {
+          setUserData(userDoc.data());
+        } else {
+          setError('User profile not found.');
+        }
+
+        // Fetch booked tickets
+        const ticketsSnapshot = await firestore()
+          .collection('bookedTickets')
+          .where('userId', '==', user.uid)
+          .get();
+        const tickets = ticketsSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setBookedTickets(tickets);
+      } catch (err) {
+        console.error('Firestore Error:', err);
+        setError('Failed to load data. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [navigation]);
+
+  const handleLogout = () => {
+    signOut(getAuth())
+      .then(() => {
+        console.log('User signed out!');
+        navigation.replace('SigninSCreen');
+      })
+      .catch(error => {
+        console.error('Logout Error:', error);
+        setError('Failed to log out. Please try again.');
+      });
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#EB2F3D" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
+
+  if (!userData) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={styles.errorText}>No user data available.</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
-      {/* Profile */}
       <View style={styles.profileContainer}>
-        <Image source={{ uri: user.profilePic }} style={styles.avatar} />
-        <Text style={styles.name}>{user.name}</Text>
-        <Text style={styles.email}>{user.email}</Text>
-        <Text style={styles.phone}>{user.phone}</Text>
+        <Text style={styles.name}>{userData.name}</Text>
+        <Text style={styles.email}>{userData.email}</Text>
+        <Text style={styles.phone}>{userData.phone}</Text>
       </View>
 
-      {/* Actions */}
       <View style={styles.actionContainer}>
-        <ActionItem icon="person" label="Edit Profile" onPress={() => {}} />
-        <ActionItem icon="key" label="Change Password" onPress={() => {}} />
-        <ActionItem icon="log-out" label="Logout" isDanger onPress={() => {}} />
+        <ActionItem
+          icon="person"
+          label="Edit Profile"
+          onPress={() => navigation.navigate('EditProfileScreen')}
+        />
+        <ActionItem
+          icon="key"
+          label="Change Password"
+          onPress={() => navigation.navigate('ChangePasswordScreen')}
+        />
+        <ActionItem icon="log-out" label="Logout" isDanger onPress={handleLogout} />
       </View>
 
-      {/* Booked Tickets */}
       <View style={styles.ticketContainer}>
         <Text style={styles.ticketHeader}>🎟️ Booked Tickets</Text>
-
         {bookedTickets.length === 0 ? (
           <Text style={styles.noTicketText}>No tickets booked yet.</Text>
         ) : (
@@ -92,17 +152,26 @@ export default AccountInfoScreen;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#000' },
+  loadingContainer: {
+    flex: 1,
+    backgroundColor: '#000',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: '#EB2F3D',
+    fontSize: 16,
+    textAlign: 'center',
+  },
   profileContainer: {
     alignItems: 'center',
     paddingTop: 50,
     paddingBottom: 30,
     backgroundColor: '#111',
   },
-  avatar: { width: 100, height: 100, borderRadius: 50, marginBottom: 12 },
   name: { fontSize: 22, color: '#fff', fontWeight: 'bold' },
   email: { fontSize: 14, color: '#ccc', marginTop: 4 },
   phone: { fontSize: 14, color: '#ccc', marginTop: 2 },
-
   actionContainer: { marginTop: 20, paddingHorizontal: 20 },
   actionItem: {
     flexDirection: 'row',
@@ -112,7 +181,6 @@ const styles = StyleSheet.create({
     borderBottomColor: '#222',
   },
   actionText: { color: '#fff', fontSize: 16, marginLeft: 16 },
-
   ticketContainer: {
     marginTop: 30,
     paddingHorizontal: 16,
