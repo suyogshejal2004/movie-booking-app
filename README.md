@@ -7,6 +7,11 @@
 <!-- <p align="center">
   <img alt="MovieFlix Banner" src="https://via.placeholder.com/1200x400.png/121011/EB2F3D?text=MovieFlix+App" />
 </p> -->
+## 🎬 Project Demo
+
+[![Watch the video](https://img.youtube.com/vi/-GLg-MrkIT4/0.jpg)](https://youtu.be/-GLg-MrkIT4?si=q0PZ602e4vZBm5_E)
+
+> 🎥 Click the thumbnail above to watch a short demo of MovieFlix in action.
 
 ---
 ## 📸 App Screenshots
