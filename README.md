@@ -1,98 +1,114 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🎬 MovieFlix – React Native Movie Booking App
 
-# Getting Started
+> A modern, full-featured movie booking app built with **React Native** and **Firebase**, offering an immersive, end-to-end user experience — from discovering trending movies to booking tickets and completing payments via UPI.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+<p align="center">
+  <img alt="MovieFlix Banner" src="https://via.placeholder.com/1200x400.png/121011/EB2F3D?text=MovieFlix+App" />
+</p>
 
-## Step 1: Start Metro
+---
+## 📸 App Screenshots
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f637b239-65b8-44fc-97de-38379e0309b3" width="250" />
+  <img src="https://github.com/user-attachments/assets/e10dc408-70ec-4b51-8517-27b3906ae691" width="250" />
+  <img src="https://github.com/user-attachments/assets/a969768f-229a-4ee2-b663-0878ab68638e" width="250" />
+</p>
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ca72c338-a323-448a-ab5d-5141505dcd30" width="250" />
+  <img src="https://github.com/user-attachments/assets/87510504-b07e-4110-be68-abfaf2d8e4cd" width="250" />
+  <img src="https://github.com/user-attachments/assets/87061333-2135-430e-847d-d697455ec99c" width="250" />
+</p>
 
-```sh
-# Using npm
-npm start
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/68d89f6b-b404-4f37-891b-304387b8992d" width="250" />
+  <img src="https://github.com/user-attachments/assets/69208962-8a47-4994-b8c6-5d2a6d7fa61e" width="250" />
+  <img src="https://github.com/user-attachments/assets/12086196-ac98-41a1-bb4d-8bbb790a98e3" width="250" />
+</p>
 
-# OR using Yarn
-yarn start
-```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c11da01b-4aea-4ad6-9394-d477ffd57fb6" width="250" />
+  <img src="https://github.com/user-attachments/assets/6d19b622-2958-4f93-88da-3bd75fdb4036" width="250" />
+  <img src="https://github.com/user-attachments/assets/3d2e1deb-ace0-4c66-9fe9-ede37ec3dfad" width="250" />
+</p>
 
-## Step 2: Build and run your app
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cc38cc49-0d0b-4900-bf1a-b60dd7c1b9a4" width="250" />
+  <img src="https://github.com/user-attachments/assets/11874999-a6ff-4788-8ceb-e55c1eb95f2a" width="250" />
+  <img src="https://github.com/user-attachments/assets/c12b0b80-9519-4744-9616-ccea2832a22f" width="250" />
+</p>
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/900e9e5f-6cdd-4233-b30d-e6a618fcb608" width="250" />
+  <img src="https://github.com/user-attachments/assets/c05bdce9-2f78-4665-9e1f-63f802072b01" width="250" />
+  <img src="https://github.com/user-attachments/assets/4d7c156b-4746-4ceb-9c95-d9e05b755779" width="250" />
+</p>
 
-### Android
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a7b1a1d3-7f5c-4fbd-b8d0-f49d1c3694fc" width="250" />
+  <img src="https://github.com/user-attachments/assets/ff21d20c-1bfc-4c46-a0fa-2ee6c5a56eb2" width="250" />
+  <img src="https://github.com/user-attachments/assets/99bb1134-0300-405d-9e42-eb03a783ebbf" width="250" />
+</p>
 
-```sh
-# Using npm
-npm run android
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c8d7aedc-7d02-4c76-9138-51d9bab8f94a" width="250" />
+  <img src="https://github.com/user-attachments/assets/ebfdf77c-8550-425e-b494-a6817d0d12e8" width="250" />
+  <img src="https://github.com/user-attachments/assets/7e7c3355-f501-4f7e-ba0d-ffd4132fcf31" width="250" />
+</p>
 
-# OR using Yarn
-yarn android
-```
+## ✨ Features Overview
 
-### iOS
+### 🔐 Authentication & User Management
+- **Firebase Authentication** (Email/Password, Google Sign-In, Phone OTP)
+- Persistent login using `AsyncStorage`
+- Profile completion check integrated with Firestore
+- Seamless user session management on app launch
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+### 🧭 Navigation & Flow
+- **React Navigation v7**
+  - Onboarding → Login → Home → Details → Booking → Payment
+- Conditional navigation based on authentication & profile completion
+- Smooth transitions powered by `react-native-reanimated` and `react-native-screens`
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+### 🎬 Movie Discovery
+- Integrated with the **OMDB API** for real-time movie data
+- Dynamic carousels for trending and upcoming movies
+- In-app **YouTube trailer playback**
+- Powerful search and filtering system
+- Genre-based recommendations
 
-```sh
-bundle install
-```
+### 🎟️ Booking Experience
+- Interactive **seat selection** screen
+- Real-time ticket pricing
+- Secure **UPI deep-link payments** (supports GPay, PhonePe, Paytm, etc.)
+- Booking confirmation stored in **Firestore**
 
-Then, and every time you update your native dependencies, run:
+### 💅 UI / UX Highlights
+- Premium **dark theme** using `react-native-linear-gradient`
+- **Lottie animations** for splash, onboarding, and transitions
+- Fully responsive layout using `react-native-responsive-ui`
+- Crisp icons from `react-native-vector-icons`
+- Toast notifications with `react-native-toast-message`
 
-```sh
-bundle exec pod install
-```
+---
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## 🧠 Tech Stack
 
-```sh
-# Using npm
-npm run ios
+| Category | Technology |
+|-----------|-------------|
+| **Frontend** | React Native 0.80, React 19 |
+| **Language** | TypeScript / JavaScript (ESNext) |
+| **Navigation** | React Navigation (Stack + Bottom Tabs) |
+| **Backend** | Firebase (Auth, Firestore, Storage) |
+| **APIs** | OMDB Movie API |
+| **UI/UX Libraries** | Lottie, Linear Gradient, Vector Icons |
+| **State Management** | React Hooks (`useState`, `useEffect`) |
+| **Networking** | Axios |
+| **Storage** | AsyncStorage |
+| **Animations** | Reanimated 3.x |
 
-# OR using Yarn
-yarn ios
-```
+---
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🧭 App Flow
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# movie-booking-app
