@@ -1,10 +1,12 @@
 # 🎬 MovieFlix – React Native Movie Booking App
+# 🎬 MovieFlix – React Native Movie Booking App  
+![Status](https://img.shields.io/badge/status-under_development-orange?style=for-the-badge&logo=react)
 
 > A modern, full-featured movie booking app built with **React Native** and **Firebase**, offering an immersive, end-to-end user experience — from discovering trending movies to booking tickets and completing payments via UPI.
 
-<p align="center">
+<!-- <p align="center">
   <img alt="MovieFlix Banner" src="https://via.placeholder.com/1200x400.png/121011/EB2F3D?text=MovieFlix+App" />
-</p>
+</p> -->
 
 ---
 ## 📸 App Screenshots
@@ -109,6 +111,9 @@
 | **Animations** | Reanimated 3.x |
 
 ---
+<p align="center">
+  🚧 <b>Note:</b> MovieFlix is still under active development. Some features are incomplete or subject to change. 🚧
+</p>
 
 ## 🧭 App Flow
 
