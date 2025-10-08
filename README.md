@@ -1,4 +1,4 @@
-# 🎬 MovieFlix – React Native Movie Booking App
+
 # 🎬 MovieFlix – React Native Movie Booking App  
 ![Status](https://img.shields.io/badge/status-under_development-orange?style=for-the-badge&logo=react)
 
@@ -115,5 +115,5 @@
   🚧 <b>Note:</b> MovieFlix is still under active development. Some features are incomplete or subject to change. 🚧
 </p>
 
-## 🧭 App Flow
+
 
